@@ -1,32 +1,36 @@
+import { useContext, useState } from "react";
 import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import apiRequest from "../../lib/apiRequest";
+import { AuthContext } from "../../context/AuthContext";
 
 function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { updateUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
-    const formData = new FormData(e.target);
     e.preventDefault();
-    setIsLoading = true;
+    setIsLoading(true);
     setError("");
+    const formData = new FormData(e.target);
 
     const username = formData.get("username");
-    const email = formData.get("email");
     const password = formData.get("password");
+
     try {
-      const response = await apiRequest.post("/auth/login", {
+      const res = await apiRequest.post("/auth/login", {
         username,
-        email,
         password,
       });
 
-      localStorage.setItem("user", JSON.stringify(response.data));
+      updateUser(res.data);
+
       navigate("/");
     } catch (err) {
-      console.log(err);
       setError(err.response.data.message);
     } finally {
       setIsLoading(false);

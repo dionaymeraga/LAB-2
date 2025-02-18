@@ -54,6 +54,14 @@ function App() {
           element: <ProfilePage />,
           loader: profilePageLoader,
         },
+        {
+          path: "/profile/update",
+          element: <ProfileUpdatePage />,
+        },
+        {
+          path: "/add",
+          element: <NewPostPage />,
+        },
       ],
     },
   ]);

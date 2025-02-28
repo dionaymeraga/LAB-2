@@ -23,7 +23,7 @@ function Navbar() {
         </a>
         <a href="/">Home</a>
         <a href="/">About</a>
-        <a href="/">Contact</a>
+        <a href="/contactUs">Contact</a>
         <a href="/">Agents</a>
       </div>
       <div className="right">
@@ -54,7 +54,7 @@ function Navbar() {
         <div className={open ? "menu active" : "menu"}>
           <a href="/">Home</a>
           <a href="/">About</a>
-          <a href="/">Contact</a>
+          <a href="/contactUs">Contact</a>
           <a href="/">Agents</a>
           <a href="/">Sign in</a>
           <a href="/">Sign up</a>
@@ -62,27 +62,6 @@ function Navbar() {
       </div>
     </nav>
   );
-  // <div id="about">
-  //   <p>
-  //     Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quod
-  //     molestias perspiciatis quo harum veniam fugiat, vitae nemo quia quaerat
-  //     error officia laudantium debitis ex neque! Temporibus inventore architecto
-  //     quia.
-  //   </p>
-  // </div>;
-
-  // <div id="contact">
-  //   <p>
-  //     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed odit minima
-  //     blanditiis a necessitatibus eaque fugit deleniti ea exercitationem
-  //     sapiente laborum, fuga quas ducimus dicta quae voluptatum molestias nisi
-  //     ullam!
-  //   </p>
-  // </div>;
-
-  // <div id="agents">
-  //   <p>agents:</p>
-  // </div>;
 }
 
 export default Navbar;

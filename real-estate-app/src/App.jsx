@@ -13,6 +13,7 @@ import {
   profilePageLoader,
   singlePageLoader,
 } from "./lib/loaders";
+import Contact from "./components/contact/Contact";
 
 function App() {
   const router = createBrowserRouter([
@@ -42,6 +43,10 @@ function App() {
         {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/contactUs",
+          element: <Contact />,
         },
       ],
     },

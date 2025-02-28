@@ -1,3 +1,4 @@
+console.log("Starting the server...");
 import { Server } from "socket.io";
 
 const io = new Server({
@@ -38,4 +39,6 @@ io.on("connection", (socket) => {
   });
 });
 
-io.listen("4000");
+io.listen(4000, () => {
+  console.log("Server is running on port 4000");
+});

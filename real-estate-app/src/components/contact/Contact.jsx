@@ -1,38 +1,59 @@
 import React from "react";
-import "./Contact.css";
 import Swal from "sweetalert2";
+import "./Contact.css";
 
 const Contact = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
 
-    formData.append("access_key", "8ebdfe1f-84f3-4fb4-baf9-7657b42110ed");
+    const formData = new FormData(event.target);
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: json,
-    }).then((res) => res.json());
+    try {
+      const res = await fetch("http://localhost:8800/api/contact/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      });
 
-    if (res.success) {
+      const data = await res.json();
+
+      if (data.success) {
+        Swal.fire({
+          title: "Success!",
+          text: "Your message has been sent successfully!",
+          icon: "success",
+        });
+
+        event.target.reset();
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "There was an issue sending your message. Please try again.",
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
       Swal.fire({
-        title: "Success!",
-        text: "Message was sent successfully!",
-        icon: "success",
+        title: "Error!",
+        text: "Something went wrong, please try again later.",
+        icon: "error",
       });
     }
   };
+
   return (
     <section className="contactForm">
       <form className="contact-form" onSubmit={onSubmit}>
         <h2 className="h2text">Contact Us:</h2>
+
+        {/* Full Name Input */}
         <div className="input-box1">
           <label>Full Name:</label>
           <input
@@ -43,6 +64,8 @@ const Contact = () => {
             required
           />
         </div>
+
+        {/* Email Input */}
         <div className="input-box1">
           <label>Email Address:</label>
           <input
@@ -54,16 +77,18 @@ const Contact = () => {
           />
         </div>
 
+        {/* Message Input */}
         <div className="input-box1">
           <label>Your Message: </label>
           <textarea
             name="message"
-            id=""
             className="field1 mess"
             placeholder="Enter your message"
             required
           ></textarea>
         </div>
+
+        {/* Submit Button */}
         <button type="submit" className="button1">
           Send Message
         </button>

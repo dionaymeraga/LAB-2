@@ -53,7 +53,7 @@ export const updateUser = async (req, res) => {
     res.status(200).json(rest);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to update users!" });
+    res.status(500).json({ message: "Failed to update user!" });
   }
 };
 
@@ -72,7 +72,7 @@ export const deleteUser = async (req, res) => {
     res.status(200).json({ message: "User deleted" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to delete users!" });
+    res.status(500).json({ message: "Failed to delete user!" });
   }
 };
 
@@ -93,7 +93,10 @@ export const savePost = async (req, res) => {
     if (savedPost) {
       await prisma.savedPost.delete({
         where: {
-          id: savedPost.id,
+          userId_postId: {
+            userId: tokenUserId,
+            postId,
+          },
         },
       });
       res.status(200).json({ message: "Post removed from saved list" });
@@ -108,7 +111,7 @@ export const savePost = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to delete users!" });
+    res.status(500).json({ message: "Failed to save post!" });
   }
 };
 
@@ -151,6 +154,6 @@ export const getNotificationNumber = async (req, res) => {
     res.status(200).json(number);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to get profile posts!" });
+    res.status(500).json({ message: "Failed to get notification number!" });
   }
 };

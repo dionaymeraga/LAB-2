@@ -11,7 +11,9 @@ import contactRoute from "./routes/contactRoutes.js";
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+
+app.use(cors({ origin: CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -21,9 +23,14 @@ app.use("/api/posts", postRoute);
 app.use("/api/test", testRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
-
 app.use("/api/contact", contactRoute); // Add the contact route here
 
-app.listen(8800, () => {
-  console.log("Server is running!");
+const PORT = process.env.PORT || 8800;
+
+app.listen(PORT, (error) => {
+  if (error) {
+    console.error("Error starting server:", error);
+  } else {
+    console.log(`Server is running on port ${PORT}!`);
+  }
 });
